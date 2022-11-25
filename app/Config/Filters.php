@@ -21,27 +21,23 @@ class Filters extends BaseConfig
         'csrf'          => CSRF::class,
         'toolbar'       => DebugToolbar::class,
         'honeypot'      => Honeypot::class,
-        'invalidchars'  => InvalidChars::class,
-        'secureheaders' => SecureHeaders::class,
-    ];
-
-    /**
-     * List of filter aliases that are always
-     * applied before and after every request.
-     *
-     * @var array
-     */
+        'auth'          => \App\Filters\Auth::class, 
+    ]; 
     public $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
+            'honeypot',
+            'csrf',
+            'auth' => ['except' => ['auth/*', '/auth']],
         ],
         'after' => [
             'toolbar',
-            // 'honeypot',
-            // 'secureheaders',
-        ],
+            'honeypot',
+            'auth' => [ 
+                'except' => [ 
+                    '/', 
+                ] 
+            ] 
+        ], 
     ];
 
     /**
